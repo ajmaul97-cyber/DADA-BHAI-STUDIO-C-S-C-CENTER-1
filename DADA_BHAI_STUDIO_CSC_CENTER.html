@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DADA BHAI STUDIO CSC CENTER</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font - Hind Siliguri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        whatsapp: '#25D366'
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #f8fafc;
+        }
+        .modal-blur {
+            backdrop-filter: blur(4px);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-900 text-white text-xs sm:text-sm py-2 px-4 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+            <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
+                <span><i class="fa-solid fa-user-gear text-amber-400 mr-1.5"></i> প্রোপ্রাইটর: <strong>মোহাঃ ওয়াশিম মেহের আলী</strong></span>
+                <span class="hidden sm:inline text-slate-500">|</span>
+                <span><i class="fa-solid fa-location-dot text-red-400 mr-1.5"></i> সৈয়দ পুর ডিলারের বাড়ির পার্শ্বে</span>
+                <span class="hidden sm:inline text-slate-500">|</span>
+                <span><i class="fa-solid fa-clock text-amber-400 mr-1.5"></i> সকাল ৮:০০ - রাত ৯:০০</span>
+            </div>
+            <!-- Admin Toggle Button -->
+            <button id="adminToggleBtn" onclick="toggleAdminModal()" class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/30 transition-all shrink-0">
+                <i id="adminLockIcon" class="fa-solid fa-lock text-amber-400"></i>
+                <span id="adminStatusText">অ্যাডমিন প্যানেল: বন্ধ</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Header / Banner -->
+    <header class="bg-gradient-to-r from-brand-900 via-brand-800 to-brand-700 text-white shadow-xl sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Branding -->
+            <div class="flex items-center gap-4 text-center md:text-left">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-2xl p-2 shadow-inner flex items-center justify-center shrink-0 border-2 border-brand-100/30">
+                    <i class="fa-solid fa-laptop-code text-brand-600 text-3xl sm:text-4xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white drop-shadow">
+                        DADA BHAI STUDIO CSC CENTER
+                    </h1>
+                    <p class="text-xs sm:text-sm text-brand-100 font-medium mt-1 flex items-center justify-center md:justify-start gap-2 flex-wrap">
+                        <span class="bg-amber-400 text-slate-900 px-2 py-0.5 rounded font-bold text-xs uppercase tracking-wider">সিএসসি ডিজিটাল সেবা কেন্দ্র</span>
+                        <span>প্রোঃ মোহাঃ ওয়াশিম মেহের আলী | মোবাইল: 9339857516</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Contact Action Buttons -->
+            <div class="flex items-center gap-3 w-full md:w-auto justify-center">
+                <a id="phoneCallBtn" href="tel:+919339857516" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all active:scale-95 text-sm sm:text-base">
+                    <i class="fa-solid fa-phone text-lg animate-pulse"></i>
+                    <span>কল করুন</span>
+                </a>
+                <a id="whatsappBtn" href="https://wa.me/919339857516?text=নমস্কার!%20আমি%20দাদা%20ভাই%20স্টুডিও%20থেকে%20পরিষেবা%20সম্পর্কে%20জানতে%20চাই।" target="_blank" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-whatsapp hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-md hover:shadow-lg transition-all active:scale-95 text-sm sm:text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>হোয়াটসঅ্যাপ</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Navigation Tabs & Search Bar -->
+        <div class="bg-brand-900/60 border-t border-brand-700/50 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <nav class="flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <button id="tabServices" onclick="switchTab('services')" class="px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-brand-800 shadow transition-all">
+                        <i class="fa-solid fa-list-check mr-1.5"></i>আমাদের সেবাসমূহ
+                    </button>
+                    <button id="tabProducts" onclick="switchTab('products')" class="px-4 py-1.5 rounded-lg text-sm font-bold text-brand-100 hover:bg-brand-800 transition-all">
+                        <i class="fa-solid fa-store mr-1.5"></i>বিক্রয়ের পণ্য
+                    </button>
+                </nav>
+
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="handleSearch()" placeholder="কাজ বা পণ্য খুঁজুন..." class="w-full pl-8 pr-4 py-1.5 rounded-lg text-xs sm:text-sm bg-white/10 text-white placeholder-brand-200 border border-brand-500/40 focus:outline-none focus:ring-2 focus:ring-amber-400">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Notification Banner -->
+    <div id="adminBanner" class="hidden bg-amber-400 text-slate-900 px-4 py-2 text-center text-xs sm:text-sm font-bold flex items-center justify-center gap-3 shadow-inner">
+        <span><i class="fa-solid fa-unlock mr-1"></i> আপনি অ্যাডমিন মোডে আছেন! নতুন ডাটা যোগ, পরিবর্তন বা মুছে ফেলতে পারবেন।</span>
+        <button onclick="logoutAdmin()" class="bg-slate-900 hover:bg-slate-800 text-white px-3 py-1 rounded text-xs transition">লগআউট</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+
+        <!-- Welcome Info Card -->
+        <section class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="space-y-2 text-center md:text-left">
+                <h2 class="text-lg sm:text-xl font-bold text-slate-800 flex items-center justify-center md:justify-start gap-2">
+                    <i class="fa-solid fa-bullhorn text-brand-600"></i>
+                    DADA BHAI STUDIO CSC CENTER-এ আপনাকে স্বাগতম!
+                </h2>
+                <p class="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                    <strong>প্রোপ্রাইটর:</strong> মোহাঃ ওয়াশিম মেহের আলী <br>
+                    <strong>ঠিকানা:</strong> সৈয়দ পুর ডিলারের বাড়ির পার্শ্বে | <strong>মোবাইল / হোয়াটসঅ্যাপ:</strong> 9339857516<br>
+                    এখানে সমস্ত প্রকার সরকারি ও বেসরকারি অনলাইন কাজ, আধার আপডেট, প্যান কার্ড, ফটো ফ্রেম ও স্ট্যাশনারি পণ্য পাওয়া যায়।
+                </p>
+            </div>
+            <!-- Stats -->
+            <div class="flex items-center gap-4 text-center shrink-0">
+                <div class="bg-brand-50 p-3 rounded-xl border border-brand-100 min-w-[90px]">
+                    <div class="text-xl font-black text-brand-600" id="serviceCount">0</div>
+                    <div class="text-xs font-semibold text-slate-500">সেবাসমূহ</div>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100 min-w-[90px]">
+                    <div class="text-xl font-black text-emerald-600" id="productCount">0</div>
+                    <div class="text-xs font-semibold text-slate-500">প্রোডাক্টস</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: SERVICES -->
+        <section id="servicesSection" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-brand-600"></i>
+                        আমাদের সেবাসমূহ (CSC Services)
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">আমাদের সেন্টারে যেসকল অনলাইন ও অফলাইন কাজ করা হয়</p>
+                </div>
+
+                <!-- Admin Service Control Button -->
+                <button id="addServiceAdminBtn" onclick="openServiceModal()" class="hidden flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition active:scale-95">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>নতুন কাজ যোগ করুন</span>
+                </button>
+            </div>
+
+            <!-- Services Grid -->
+            <div id="servicesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Services Cards dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: PRODUCTS -->
+        <section id="productsSection" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-store text-emerald-600"></i>
+                        বিক্রয়ের জন্য পণ্য (Products for Sale)
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">আমাদের দোকানে বিক্রয়ের জন্য প্রস্তুত ফটো ফ্রেম ও সামগ্রী</p>
+                </div>
+
+                <!-- Admin Product Control Button -->
+                <button id="addProductAdminBtn" onclick="openProductModal()" class="hidden flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md transition active:scale-95">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>নতুন পণ্য যোগ করুন</span>
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Product Cards dynamically loaded here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 text-white font-bold text-lg">
+                <i class="fa-solid fa-laptop-code text-brand-500"></i>
+                DADA BHAI STUDIO CSC CENTER
+            </div>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+                <strong>প্রোপ্রাইটর:</strong> মোহাঃ ওয়াশিম মেহের আলী | <strong>মোবাইল:</strong> 9339857516<br>
+                <strong>ঠিকানা:</strong> সৈয়দ পুর ডিলারের বাড়ির পার্শ্বে
+            </p>
+            <div class="pt-4 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-3 max-w-4xl mx-auto">
+                <span>© <span id="currentYear"></span> DADA BHAI STUDIO CSC CENTER. সর্বস্বত্ব সংরক্ষিত।</span>
+                <button id="resetDataBtn" onclick="resetToDefaultData()" class="hidden text-red-400 hover:text-red-300 underline font-semibold">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> ডিফল্ট তথ্য পুনর্বহাল করুন
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODALS SECTION -->
+
+    <!-- 1. ADMIN PIN MODAL -->
+    <div id="adminModal" class="fixed inset-0 bg-slate-900/60 z-50 modal-blur flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">অ্যাডমিন প্রবেশাধিকার</h3>
+                <p class="text-xs text-slate-500">পরিবর্তন করতে পাসওয়ার্ড দিন</p>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="mt-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">অ্যাডমিন পাসওয়ার্ড (Password)</label>
+                    <input type="password" id="adminPinInput" placeholder="পাসওয়ার্ড লিখুন" required autofocus maxlength="20"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none text-center text-lg">
+                </div>
+                <div id="pinError" class="hidden text-xs text-red-500 font-semibold text-center">
+                    ভুল পাসওয়ার্ড দিয়েছেন! আবার চেষ্টা করুন।
+                </div>
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeAdminModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-semibold text-sm transition">
+                        বাতিল
+                    </button>
+                    <button type="submit" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm transition shadow-md">
+                        আনলক করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. ADD / EDIT SERVICE MODAL -->
+    <div id="serviceModal" class="fixed inset-0 bg-slate-900/60 z-50 modal-blur flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                <h3 id="svcModalTitle" class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-brand-600"></i>
+                    নতুন কাজের বিবরণ যোগ করুন
+                </h3>
+                <button onclick="closeServiceModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="saveServiceForm(event)" class="space-y-4">
+                <input type="hidden" id="editSvcId">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">কাজের নাম (Service Title) *</label>
+                    <input type="text" id="svcTitle" placeholder="যেমন: আধার কার্ড প্রিন্ট" required
+                        class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">আইকন টাইপ</label>
+                        <select id="svcIcon" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            <option value="fa-id-card">💳 আইডি কার্ড</option>
+                            <option value="fa-print">🖨️ প্রিন্ট/জেরক্স</option>
+                            <option value="fa-file-signature">📝 ফর্ম আবেদন</option>
+                            <option value="fa-passport">🛂 ফটো সার্ভিস</option>
+                            <option value="fa-money-bill-transfer">💸 ব্যাংকিং / AEPS</option>
+                            <option value="fa-certificate">📜 সার্টিফিকেট</option>
+                            <option value="fa-laptop">💻 অনলাইন সংক্রান্ত</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">সরকারি/আনুমানিক ফি (₹)</label>
+                        <input type="text" id="svcFee" placeholder="যেমন: ₹৫০" 
+                            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">বিবরণ (Description) *</label>
+                    <textarea id="svcDesc" rows="3" placeholder="কাজের ব্যাপারে প্রয়োজনীয় তথ্য লিখুন..." required
+                        class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm"></textarea>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeServiceModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-semibold text-sm">
+                        বাতিল
+                    </button>
+                    <button type="submit" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white py-2.5 rounded-xl font-semibold text-sm shadow-md">
+                        সংরক্ষণ করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. ADD / EDIT PRODUCT MODAL -->
+    <div id="productModal" class="fixed inset-0 bg-slate-900/60 z-50 modal-blur flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+                <h3 id="prodModalTitle" class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-cart-plus text-emerald-600"></i>
+                    নতুন পণ্য যোগ করুন
+                </h3>
+                <button onclick="closeProductModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form onsubmit="saveProductForm(event)" class="space-y-4">
+                <input type="hidden" id="editProdId">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">পণ্যের নাম (Product Name) *</label>
+                    <input type="text" id="prodName" placeholder="যেমন: ফটো ফ্রেম (8x10)" required
+                        class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none text-sm">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">মূল্য (টাকায় ₹) *</label>
+                        <input type="number" id="prodPrice" placeholder="150" required min="0"
+                            class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">স্টক স্ট্যাটাস</label>
+                        <select id="prodStock" class="w-full px-3 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none text-sm">
+                            <option value="In Stock">স্টকে আছে</option>
+                            <option value="Out of Stock">স্টকে নেই</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">ছবি লিঙ্ক (Image URL) [ঐচ্ছিক]</label>
+                    <input type="url" id="prodImage" placeholder="https://..." 
+                        class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">পণ্যের বিবরণ (Description)</label>
+                    <textarea id="prodDesc" rows="2" placeholder="পণ্য সম্পর্কে তথ্য লিখুন..."
+                        class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none text-sm"></textarea>
+                </div>
+
+                <div class="flex items-center gap-2 pt-2">
+                    <button type="button" onclick="closeProductModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-semibold text-sm">
+                        বাতিল
+                    </button>
+                    <button type="submit" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl font-semibold text-sm shadow-md">
+                        সংরক্ষণ করুন
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const SHOP_PHONE = "9339857516";
+        const ADMIN_PIN_CODE = "Meher16@";
+
+        let isAdminUnlocked = false;
+        let activeTab = 'services';
+        let searchQuery = '';
+
+        // Default Services Data
+        const defaultServices = [
+            {
+                id: 'svc-1',
+                title: 'আধার কার্ড প্রিন্ট ও আপডেট',
+                icon: 'fa-id-card',
+                fee: '₹৫০',
+                desc: 'নতুন আধার কার্ড প্রিন্ট, মোবাইল নম্বর লিংক, নাম/ঠিকানা সংশোধন ও পিভিসি কার্ড প্রিন্ট।'
+            },
+            {
+                id: 'svc-2',
+                title: 'প্যান কার্ড আবেদন ও সংশোধন',
+                icon: 'fa-file-signature',
+                fee: '₹১০৭',
+                desc: 'নতুন প্যান কার্ড আবেদন (E-KYC ইনস্ট্যান্ট) এবং ভুল সংশোধনের কাজ।'
+            },
+            {
+                id: 'svc-3',
+                title: 'অনলাইন ফর্ম ফিলাপ',
+                icon: 'fa-laptop',
+                fee: 'সরকারী ফি',
+                desc: 'স্কলারশিপ, চাকরির আবেদন, কলেজের অ্যাডমিশন সহ সমস্ত অনলাইন ফর্ম ফিলাপ।'
+            },
+            {
+                id: 'svc-4',
+                title: 'পাসপোর্ট ছবি ও ল্যামিনেশন',
+                icon: 'fa-passport',
+                fee: '₹৪০ / ৮ কপি',
+                desc: 'তাৎক্ষণিক পাসপোর্ট সাইজ ফটো তোলা, কালার প্রিন্টিং এবং গ্লসি ল্যামিনেশন।'
+            },
+            {
+                id: 'svc-5',
+                title: 'ভোটার আইডি ও আধার সংক্রান্ত',
+                icon: 'fa-certificate',
+                fee: 'ন্যূনতম ফি',
+                desc: 'নতুন ভোটার কার্ড নাম তোলা, সংশোধন, এবং পিভিসি স্মার্ট কার্ড ডাউনলোড ও প্রিন্ট।'
+            },
+            {
+                id: 'svc-6',
+                title: 'AEPS ক্যাশ উইথড্রয়াল ও বিল পেমেন্ট',
+                icon: 'fa-money-bill-transfer',
+                fee: 'বিনামূল্যে',
+                desc: 'আধার মারফত টাকা তোলা, ইলেকট্রিক বিল জমা, মোবাইল ও ডিটিএইচ রিচার্জ।'
+            }
+        ];
+
+        // Default Products Data
+        const defaultProducts = [
+            {
+                id: 'prod-1',
+                name: 'পাসপোর্ট ফটো ফ্রেম (8x10)',
+                price: '180',
+                stock: 'In Stock',
+                image: 'https://images.unsplash.com/photo-1582562124811-c09040d0a901?auto=format&fit=crop&w=400&q=80',
+                desc: 'প্রাকৃতিক কাঠের ফিনিশিং যুক্ত আকর্ষণীয় ফটো ফ্রেম।'
+            },
+            {
+                id: 'prod-2',
+                name: 'ল্যামিনেটেড PVC কার্ড কাভার',
+                price: '30',
+                stock: 'In Stock',
+                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80',
+                desc: 'আধার বা প্যান কার্ডের জন্য ওয়াটারপ্রুফ টেকসই কাভার।'
+            },
+            {
+                id: 'prod-3',
+                name: 'হাই গ্লসি ফটো পেপার প্যাক',
+                price: '250',
+                stock: 'In Stock',
+                image: 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=400&q=80',
+                desc: '২০০ জিএসএম প্রিমিয়াম গ্লসি ফটো প্রিন্টিং পেপার।'
+            }
+        ];
+
+        // LocalStorage Getters/Setters
+        function getServices() {
+            const data = localStorage.getItem('db_services');
+            return data ? JSON.parse(data) : defaultServices;
+        }
+
+        function saveServices(data) {
+            localStorage.setItem('db_services', JSON.stringify(data));
+            renderServices();
+        }
+
+        function getProducts() {
+            const data = localStorage.getItem('db_products');
+            return data ? JSON.parse(data) : defaultProducts;
+        }
+
+        function saveProducts(data) {
+            localStorage.setItem('db_products', JSON.stringify(data));
+            renderProducts();
+        }
+
+        // Search Filter Logic
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderServices();
+            renderProducts();
+        }
+
+        // Tab Switching Logic
+        function switchTab(tab) {
+            activeTab = tab;
+            const btnServices = document.getElementById('tabServices');
+            const btnProducts = document.getElementById('tabProducts');
+            const secServices = document.getElementById('servicesSection');
+            const secProducts = document.getElementById('productsSection');
+
+            if (tab === 'services') {
+                btnServices.className = "px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-brand-800 shadow transition-all";
+                btnProducts.className = "px-4 py-1.5 rounded-lg text-sm font-bold text-brand-100 hover:bg-brand-800 transition-all";
+                secServices.classList.remove('hidden');
+                secProducts.classList.add('hidden');
+            } else {
+                btnProducts.className = "px-4 py-1.5 rounded-lg text-sm font-bold bg-white text-emerald-800 shadow transition-all";
+                btnServices.className = "px-4 py-1.5 rounded-lg text-sm font-bold text-brand-100 hover:bg-brand-800 transition-all";
+                secProducts.classList.remove('hidden');
+                secServices.classList.add('hidden');
+            }
+        }
+
+        // Render Services
+        function renderServices() {
+            let services = getServices();
+            if (searchQuery) {
+                services = services.filter(s => s.title.toLowerCase().includes(searchQuery) || s.desc.toLowerCase().includes(searchQuery));
+            }
+
+            const container = document.getElementById('servicesContainer');
+            document.getElementById('serviceCount').innerText = getServices().length;
+
+            if (services.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-slate-500 font-semibold text-sm">কোনো সেবা খুঁজে পাওয়া যায়নি।</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = services.map(svc => `
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative">
+                    <div>
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-xl flex items-center justify-center text-xl shrink-0 border border-brand-100">
+                                <i class="fa-solid ${svc.icon || 'fa-laptop'}"></i>
+                            </div>
+                            ${isAdminUnlocked ? `
+                                <div class="flex items-center gap-1">
+                                    <button onclick="editService('${svc.id}')" class="text-slate-400 hover:text-brand-600 p-1.5 rounded-lg hover:bg-brand-50 transition" title="সম্পাদনা করুন">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button onclick="deleteService('${svc.id}')" class="text-slate-400 hover:text-red-500 p-1.5 rounded-lg hover:bg-red-50 transition" title="ডিলিট করুন">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <h3 class="font-bold text-slate-800 text-base sm:text-lg">${svc.title}</h3>
+                            ${svc.fee ? `<span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0">${svc.fee}</span>` : ''}
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">${svc.desc}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs text-emerald-600 font-semibold"><i class="fa-solid fa-check-circle mr-1"></i>উপলব্ধ</span>
+                        <a href="https://wa.me/91${SHOP_PHONE}/?text=${encodeURIComponent('নমস্কার! আমি ' + svc.title + ' সম্পর্কে জানতে চাই (DADA BHAI STUDIO CSC CENTER)।')}" 
+                           target="_blank" 
+                           class="inline-flex items-center gap-1.5 text-xs font-bold text-whatsapp hover:underline">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>জানতে চান</span>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Products
+        function renderProducts() {
+            let products = getProducts();
+            if (searchQuery) {
+                products = products.filter(p => p.name.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery));
+            }
+
+            const container = document.getElementById('productsContainer');
+            document.getElementById('productCount').innerText = getProducts().length;
+
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-2xl border border-dashed border-slate-300">
+                        <i class="fa-solid fa-box-open text-3xl text-slate-300 mb-2"></i>
+                        <p class="text-slate-500 font-semibold text-sm">কোনো প্রোডাক্ট খুঁজে পাওয়া যায়নি।</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = products.map(prod => `
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-44 bg-slate-100 overflow-hidden">
+                            <img src="${prod.image || 'https://placehold.co/400x300/e2e8f0/64748b?text=Product'}" 
+                                 alt="${prod.name}" 
+                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/e2e8f0/64748b?text=No+Image';">
+                            <span class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-full ${prod.stock === 'Out of Stock' ? 'bg-red-500 text-white' : 'bg-emerald-500 text-white'}">
+                                ${prod.stock === 'Out of Stock' ? 'স্টকে নেই' : 'স্টকে আছে'}
+                            </span>
+                            ${isAdminUnlocked ? `
+                                <div class="absolute top-2 right-2 flex items-center gap-1 bg-white/90 p-1 rounded-full shadow">
+                                    <button onclick="editProduct('${prod.id}')" class="w-7 h-7 rounded-full hover:bg-slate-100 text-slate-700 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <button onclick="deleteProduct('${prod.id}')" class="w-7 h-7 rounded-full hover:bg-red-50 text-red-500 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-slate-800 text-base mb-1">${prod.name}</h3>
+                            <p class="text-xs text-slate-500 line-clamp-2 mb-3">${prod.desc || 'কোন বিবরণ দেওয়া নেই'}</p>
+                            <div class="text-lg font-black text-emerald-600">
+                                ₹${prod.price} <span class="text-xs font-normal text-slate-400">/ প্রতিটি</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <a href="https://wa.me/91${SHOP_PHONE}/?text=${encodeURIComponent('নমস্কার! আমি এই পণ্যটি কিনতে চাই: ' + prod.name + ' (মূল্য: ₹' + prod.price + ') - DADA BHAI STUDIO CSC CENTER')}" 
+                           target="_blank" 
+                           class="w-full flex items-center justify-center gap-2 bg-whatsapp hover:bg-emerald-600 text-white py-2 rounded-xl text-xs font-bold transition shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>অর্ডার করুন</span>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ADMIN ACCESS CONTROLS
+        function toggleAdminModal() {
+            if (isAdminUnlocked) {
+                logoutAdmin();
+            } else {
+                document.getElementById('adminModal').classList.remove('hidden');
+                document.getElementById('adminPinInput').focus();
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+            document.getElementById('pinError').classList.add('hidden');
+            document.getElementById('adminPinInput').value = '';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('adminPinInput').value;
+            if (pin === ADMIN_PIN_CODE) {
+                isAdminUnlocked = true;
+                closeAdminModal();
+                updateAdminUI();
+            } else {
+                document.getElementById('pinError').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminUnlocked = false;
+            updateAdminUI();
+        }
+
+        function updateAdminUI() {
+            const statusText = document.getElementById('adminStatusText');
+            const lockIcon = document.getElementById('adminLockIcon');
+            const adminBanner = document.getElementById('adminBanner');
+            const addServiceBtn = document.getElementById('addServiceAdminBtn');
+            const addProductBtn = document.getElementById('addProductAdminBtn');
+            const resetBtn = document.getElementById('resetDataBtn');
+
+            if (isAdminUnlocked) {
+                statusText.innerText = "অ্যাডমিন প্যানেল: চালু";
+                lockIcon.className = "fa-solid fa-unlock text-emerald-400";
+                adminBanner.classList.remove('hidden');
+                addServiceBtn.classList.remove('hidden');
+                addProductBtn.classList.remove('hidden');
+                resetBtn.classList.remove('hidden');
+            } else {
+                statusText.innerText = "অ্যাডমিন প্যানেল: বন্ধ";
+                lockIcon.className = "fa-solid fa-lock text-amber-400";
+                adminBanner.classList.add('hidden');
+                addServiceBtn.classList.add('hidden');
+                addProductBtn.classList.add('hidden');
+                resetBtn.classList.add('hidden');
+            }
+
+            renderServices();
+            renderProducts();
+        }
+
+        // SERVICE MODAL & FORM LOGIC
+        function openServiceModal() {
+            document.getElementById('svcModalTitle').innerText = "নতুন কাজের বিবরণ যোগ করুন";
+            document.getElementById('editSvcId').value = "";
+            document.getElementById('svcTitle').value = "";
+            document.getElementById('svcDesc').value = "";
+            document.getElementById('svcFee').value = "";
+            document.getElementById('serviceModal').classList.remove('hidden');
+        }
+
+        function editService(id) {
+            const svc = getServices().find(s => s.id === id);
+            if (!svc) return;
+            document.getElementById('svcModalTitle').innerText = "কাজের বিবরণ পরিবর্তন করুন";
+            document.getElementById('editSvcId').value = svc.id;
+            document.getElementById('svcTitle').value = svc.title;
+            document.getElementById('svcIcon').value = svc.icon || 'fa-id-card';
+            document.getElementById('svcFee').value = svc.fee || '';
+            document.getElementById('svcDesc').value = svc.desc;
+            document.getElementById('serviceModal').classList.remove('hidden');
+        }
+
+        function closeServiceModal() {
+            document.getElementById('serviceModal').classList.add('hidden');
+        }
+
+        function saveServiceForm(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editSvcId').value;
+            const title = document.getElementById('svcTitle').value.trim();
+            const icon = document.getElementById('svcIcon').value;
+            const fee = document.getElementById('svcFee').value.trim();
+            const desc = document.getElementById('svcDesc').value.trim();
+
+            let services = getServices();
+
+            if (editId) {
+                services = services.map(s => s.id === editId ? { ...s, title, icon, fee, desc } : s);
+            } else {
+                services.push({
+                    id: 'svc-' + Date.now(),
+                    title,
+                    icon,
+                    fee,
+                    desc
+                });
+            }
+
+            saveServices(services);
+            closeServiceModal();
+        }
+
+        function deleteService(id) {
+            if (!isAdminUnlocked) return;
+            if (confirm('আপনি কি এই সেবাটি মুছে ফেলতে চান?')) {
+                const services = getServices().filter(s => s.id !== id);
+                saveServices(services);
+            }
+        }
+
+        // PRODUCT MODAL & FORM LOGIC
+        function openProductModal() {
+            document.getElementById('prodModalTitle').innerText = "নতুন পণ্য যোগ করুন";
+            document.getElementById('editProdId').value = "";
+            document.getElementById('prodName').value = "";
+            document.getElementById('prodPrice').value = "";
+            document.getElementById('prodImage').value = "";
+            document.getElementById('prodDesc').value = "";
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function editProduct(id) {
+            const prod = getProducts().find(p => p.id === id);
+            if (!prod) return;
+            document.getElementById('prodModalTitle').innerText = "পণ্য সম্পাদনা করুন";
+            document.getElementById('editProdId').value = prod.id;
+            document.getElementById('prodName').value = prod.name;
+            document.getElementById('prodPrice').value = prod.price;
+            document.getElementById('prodStock').value = prod.stock || 'In Stock';
+            document.getElementById('prodImage').value = prod.image || '';
+            document.getElementById('prodDesc').value = prod.desc || '';
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        function saveProductForm(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editProdId').value;
+            const name = document.getElementById('prodName').value.trim();
+            const price = document.getElementById('prodPrice').value.trim();
+            const stock = document.getElementById('prodStock').value;
+            const image = document.getElementById('prodImage').value.trim();
+            const desc = document.getElementById('prodDesc').value.trim();
+
+            let products = getProducts();
+
+            if (editId) {
+                products = products.map(p => p.id === editId ? { ...p, name, price, stock, image, desc } : p);
+            } else {
+                products.push({
+                    id: 'prod-' + Date.now(),
+                    name,
+                    price,
+                    stock,
+                    image,
+                    desc
+                });
+            }
+
+            saveProducts(products);
+            closeProductModal();
+        }
+
+        function deleteProduct(id) {
+            if (!isAdminUnlocked) return;
+            if (confirm('আপনি কি এই প্রোডাক্টটি মুছে ফেলতে চান?')) {
+                const products = getProducts().filter(p => p.id !== id);
+                saveProducts(products);
+            }
+        }
+
+        function resetToDefaultData() {
+            if (!isAdminUnlocked) return;
+            if (confirm('আপনার সমস্ত কাস্টম ডেটা মুছে আগের ডিফল্ট ডেটা ফেরত আনা হবে। নিশ্চিত তো?')) {
+                localStorage.removeItem('db_services');
+                localStorage.removeItem('db_products');
+                renderServices();
+                renderProducts();
+            }
+        }
+
+        // Initialize on window load
+        window.onload = function() {
+            document.getElementById('currentYear').innerText = new Date().getFullYear();
+            renderServices();
+            renderProducts();
+        };
+    </script>
+</body>
+</html>
